@@ -1,10 +1,23 @@
 // const express = require('express')
 import express from "express"
 const app = express()
-const port = 3000
+// const port = 3000
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
+//parser
+app.use(express.json())
+app.use(express.text())
+
+app.get('/', (req:Request, res:Response) => {
+  // res.send('Hello World!')
+  // res.send('Hello programmer!')
+  // res.send('Hello developers!')
+  res.send('Hello Problem solvers!')
+})
+
+app.post("/",(req:Request,res:Response)=>{
+  console.log("i m in level2 developer")
+  res.send("i m in level2 developer")
+  console.log(req.body)
 })
 
 // app.listen(port, () => {
