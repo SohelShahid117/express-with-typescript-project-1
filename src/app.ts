@@ -1,7 +1,9 @@
 // const express = require('express')
+import { error } from "console";
 import express, { NextFunction } from "express";
 import { hostname } from "os";
 // import { userInfo } from "os"
+conimport { NextFunction } from 'express';
 const app = express();
 // const port = 3000
 
@@ -53,14 +55,28 @@ const logger = (req: Request, res: Response, next: NextFunction) => {
 // app.get('/:userId', (req:Request, res:Response) => {
 // app.get('/:userId/:subId', (req:Request, res:Response) => {
 // app.get('/', (req:Request, res:Response) => {
-app.get("/", logger, (req: Request, res: Response) => {
+// app.get("/", logger, (req: Request, res: Response) => {
+// app.get("/", logger, async(req: Request, res: Response) => {
+app.get("/", logger, async(req: Request, res: Response,next:NextFunction) => {
   // console.log(req.params)
   // console.log(req.query)
   console.log(req.query.name, req.query.email);
   // res.send('Hello World!')
   // res.send('Hello programmer!')
-  res.send("Hello developers!");
+  // res.send("Hello developers!");
   // res.send('Hello Problem solvers!')
+  // res.send(something prblm)
+  try{
+    res.send(something prblm)
+
+  }catch(err){
+    console.log(err)
+    next(err)
+    // res.status(400).json({
+    //   success:false,
+    //   message:"failed to get data"
+    // })
+  }
 });
 
 app.post("/", logger, (req: Request, res: Response) => {
@@ -72,5 +88,25 @@ app.post("/", logger, (req: Request, res: Response) => {
 // app.listen(port, () => {
 //   console.log(`Example app listening on port ${port}`)
 // })
+
+app.all("*",(req,res)=>{
+  res.status(400).json({
+    success:false,
+    message:"route not found"
+  })
+})
+
+
+//global err handler
+app.use(error:any,req:Request,res:Response,next:NextFunction)=>{
+  console.log(error)
+  if(error){
+    res.status(400).json({
+      success:false,
+      message:"something wrong"
+    })
+  }
+
+}
 
 export default app;
